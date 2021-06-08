@@ -1,12 +1,16 @@
 # Bot Calen
 This bot can add tasks in a Json with commands in Discord 
 ## Run
-If you want initialize the bot, you need type this in the console in the direcoty:
+If you want initialize the bot,but we need install all packeges for the bot can run.
+```shell
+    npm i
+```
+Once you install all packets, you will able write this command to initialize:
 ```shell
     npm start
 ``` 
 ## Commands
-When you have initialized the bot, you will able interact with it.\
+If you have initialized the bot, you will able interact with it.\
 Add a new task:
 ```shell
     -add [DAY] [TIME] [MESSAGE]
