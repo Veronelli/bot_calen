@@ -37,8 +37,6 @@ const add = (msg,author)=>{
         sentence = msg[i] + " "
 
     }
-    console.log(date.toString())
-
     if(sentence == "" || date.toString() == "Invalid Date"){
         return "Invalid datas"
 
@@ -49,7 +47,8 @@ const add = (msg,author)=>{
         message: sentence,
         alert: date,
         createdAt: date_now,
-        author
+        author,
+        alerted: false
         
     }
 
@@ -113,8 +112,82 @@ const updateMessage = (msg, message)=>{
 
 }
 
+const updateDate = (msg)=>{
+    const date = createDate(msg[3],msg[4])
+    const alert = new Date(date)
+    const id = msg[2]
+
+    const tasks = File.getCalen()
+    const index = tasks.findIndex((tk) => tk._id == id)
+
+    if(index == -1)
+        return "Error with date"
+    
+    tasks[index].alert = alert.toISOString()
+
+    console.log(tasks)
+    File.setCalen(tasks)
+    return "The update was successfully"
+
+}
+
 const createDate = (date,time)=>{
     return (date + " " + time)
+
+}
+
+const registry = (channel, client)=>{
+    const tasks = File.getCalen()
+
+    const now_alert = Date.now()
+    const Now_Alert = new Date(now_alert)
+
+    const Year = Now_Alert.getFullYear()
+    const string_Mouth = addZero(Now_Alert.getMonth())
+    const string_Day = addZero(Now_Alert.getDay())
+
+    const string_Hours = addZero(Now_Alert.getHours())
+    const string_Minutes = addZero(Now_Alert.getMinutes())
+
+    const now_time = string_Hours + ":" + string_Minutes
+    const now_day = string_Day + "/" + string_Mouth + "/" + Year
+
+    for(let i = 0; i < tasks.length; i++){
+        
+        const alert = tasks[i].alert
+        const alert_date = new Date(alert)
+
+        const string_alert_Year = addZero(alert_date.getFullYear())
+        const string_alert_Month = addZero(alert_date.getMonth())
+        const string_alert_Day = addZero(alert_date.getDay())
+
+        const string_alert_Hours = addZero(alert_date.getHours())
+        const string_alert_Minutes = addZero(alert_date.getMinutes())
+
+        const alert_time = string_alert_Hours + ":" + string_alert_Minutes
+        const alert_day = string_alert_Day + "/" + string_alert_Month + "/" +string_alert_Year
+        
+        if(now_time == alert_time && now_day == alert_day)
+            client.channels.cache.get(channel).send(tasks[i].message)
+
+        
+        if(tasks[i].alerted == false && now_day == alert_day){
+
+            console.log("Alert of the day")
+            console.log(`${alert_day} ${alert_time}`)
+            tasks[i].alerted = true
+            
+            client.channels.cache.get(channel).send("**Remember**: " + tasks[i].message +", today at " + alert_time)
+            File.setCalen(tasks)
+
+        }
+
+    }
+
+}
+
+const addZero = (dt)=>{
+    return dt <= 10 ? "0" + dt : dt
 
 }
 
@@ -122,5 +195,7 @@ module.exports = {
     add,
     remove,
     viewTasks,
-    updateMessage
+    updateMessage,
+    updateDate,
+    registry
 }

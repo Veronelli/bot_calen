@@ -21,7 +21,7 @@ Remove a task
 ```
 ,or Update:
 ```shell
-    -rvm [OPTION] [ID] [VALUE]
+    -upt [OPTION] [ID] [VALUE]
 ```
 So you can see all tasks:
 ```shell
@@ -31,5 +31,12 @@ If you don't remember the commands, you can use
 ```shell
     -help
 ```
+
+### Update options table
+| Option     | Description |
+|---------  |-------|
+|`msg`      |  This option allow to use message propetie     |
+|`dt`       | Allow you manipulate the date
+
 MY LINKEDIN: [Facundo Veronelli](https://www.linkedin.com/in/facundoveronelli/).\
 (Pd: This bot isn't complete, I have to add some funtionalities)
