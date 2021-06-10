@@ -11,6 +11,10 @@ Once you install all packets, you will able write this command to initialize:
 ``` 
 ## Commands
 If you have initialized the bot, you will able interact with it.\
+To config the bot in the server, you have to write this:
+```shell 
+    -config [ID]
+```
 Add a new task:
 ```shell
     -add [DAY] [TIME] [MESSAGE]
