@@ -7,7 +7,7 @@ const File = require('./utils/file')
 const client = new Discord.Client()
 const TOKEN = process.env.Token_Bot
 
-let channel = '425020459873206273';
+let channel = '000000000000000000';
 
 client.on('ready',(msg)=>{
     console.log("Looged!!")
@@ -26,7 +26,8 @@ client.on("message", (message) => {
 
         case "-config":
             channel = msg[1]
-            message.repply("The main channel will be" + channel)
+            message.reply("The main channel will be " + channel)
+            console.log(channel)
 
         break
 

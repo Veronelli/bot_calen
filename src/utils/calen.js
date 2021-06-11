@@ -152,6 +152,8 @@ const registry = (channel, client)=>{
     const now_time = string_Hours + ":" + string_Minutes
     const now_day = string_Day + "/" + string_Mouth + "/" + Year
 
+    console.log(channel)
+
     for(let i = 0; i < tasks.length; i++){
         
         const alert = tasks[i].alert
