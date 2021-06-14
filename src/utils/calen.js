@@ -34,14 +34,14 @@ const add = (msg,author)=>{
     let tasks = File.getCalen()
     
     for(let i = 3 ; i < msg.length; i++){
-        sentence = msg[i] + " "
+        sentence += msg[i] + " "
 
     }
     if(sentence == "" || date.toString() == "Invalid Date"){
         return "Invalid datas"
 
     }
-
+    console.log(sentence)
     const task = {
         _id,
         message: sentence,
